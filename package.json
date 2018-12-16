@@ -1,0 +1,22 @@
+{
+  "name": "commensal-common",
+  "version": "1.0.7",
+  "description": "common code for commensal back-end",
+  "main": "index.js",
+  "engines": {
+    "node": "^8.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0"
+  }
+}
