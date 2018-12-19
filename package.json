@@ -14,7 +14,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://atyrian@github.com/commensal-common.git"
+    "url": "git+https://github.com/atyrian/commensal-common.git"
   },
   "devDependencies": {
     "eslint": "^5.3.0",
