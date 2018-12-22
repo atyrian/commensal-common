@@ -7,7 +7,7 @@ const policyEffects = {
   },
 };
 
-exports.constants = policyEffects;
+exports.policyEffects = policyEffects;
 
 const jwtOptions = {
   get allowedAlgorithms() {
@@ -15,4 +15,12 @@ const jwtOptions = {
   },
 };
 
-exports.constants = jwtOptions;
+exports.jwtOptions = jwtOptions;
+
+const authorizerTypes = {
+  get serviceAuthorizer() {
+    return 'service';
+  },
+};
+
+exports.authorizerTypes = authorizerTypes;
