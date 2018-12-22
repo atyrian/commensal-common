@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const jwt = require('jsonwebtoken');
 const BaseAuthorizer = require('./baseAuthorizer');
-const { policyEffects, jwtOptions } = require('../constants/auth');
+const { policyEffects, jwtOptions, authorizerTypes } = require('../constants/auth');
 
 class ServiceAuthorizer extends BaseAuthorizer {
   constructor(event) {
@@ -12,7 +12,6 @@ class ServiceAuthorizer extends BaseAuthorizer {
 
   async authorize() {
     const policyEffect = await this.validateToken(this.event.authorizationToken);
-    console.log('policy effect was =>', policyEffect);
     const policy = super.generatePolicy('service', policyEffect);
     return policy;
   }
@@ -27,7 +26,7 @@ class ServiceAuthorizer extends BaseAuthorizer {
             console.log('Validation Error:', err);
             return resolve(policyEffects.deny);
           }
-          if (res.aut === 'service') {
+          if (res.aut === authorizerTypes.serviceAuthorizer) {
             return resolve(policyEffects.allow);
           }
           return resolve(policyEffects.deny);
