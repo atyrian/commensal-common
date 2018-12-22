@@ -1,6 +1,5 @@
 class BaseAuthorizer {
   generatePolicy(principalId, effect) {
-    console.log('Base event:', this.event);
     const resource = this.event.methodArn;
     const authResponse = {};
     authResponse.principalId = principalId;
