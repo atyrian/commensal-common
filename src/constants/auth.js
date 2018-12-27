@@ -21,6 +21,9 @@ const authorizerTypes = {
   get serviceAuthorizer() {
     return 'service';
   },
+  get userAuthorizer() {
+    return 'user';
+  },
 };
 
 exports.authorizerTypes = authorizerTypes;
