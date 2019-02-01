@@ -7,6 +7,8 @@ class UserAuthorizer extends BaseAuthorizer {
   constructor(event) {
     super();
     this.event = event;
+    const methodArn = event.methodArn.split('/');
+    this.id = methodArn.pop();
     this.ssm = new AWS.SSM();
   }
 
@@ -27,6 +29,7 @@ class UserAuthorizer extends BaseAuthorizer {
             return resolve(policyEffects.deny);
           }
           if (res.aut === authorizerTypes.userAuthorizer) {
+            console.log('res.sub =>', res.sub); // compare to this.id and deny unless they match (only allowed to request own account)
             return resolve(policyEffects.allow);
           }
           return resolve(policyEffects.deny);
