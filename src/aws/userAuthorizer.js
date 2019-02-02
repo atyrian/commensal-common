@@ -28,8 +28,8 @@ class UserAuthorizer extends BaseAuthorizer {
             console.log('Validation Error:', err);
             return resolve(policyEffects.deny);
           }
-          if (res.aut === authorizerTypes.userAuthorizer) {
-            console.log('res.sub =>', res.sub); // compare to this.id and deny unless they match (only allowed to request own account)
+          if (res.aut === authorizerTypes.userAuthorizer
+            && parseInt(res.sub, 10) === parseInt(this.id, 10)) {
             return resolve(policyEffects.allow);
           }
           return resolve(policyEffects.deny);
