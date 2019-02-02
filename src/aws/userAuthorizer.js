@@ -3,16 +3,18 @@ const jwt = require('jsonwebtoken');
 const BaseAuthorizer = require('./baseAuthorizer');
 const { policyEffects, jwtOptions, authorizerTypes } = require('../constants/auth');
 
-class ServiceAuthorizer extends BaseAuthorizer {
+class UserAuthorizer extends BaseAuthorizer {
   constructor(event) {
     super();
     this.event = event;
+    const methodArn = event.methodArn.split('/');
+    this.id = methodArn.pop();
     this.ssm = new AWS.SSM();
   }
 
   async authorize() {
     const policyEffect = await this.validateToken(this.event.authorizationToken);
-    const policy = super.generatePolicy('service', policyEffect);
+    const policy = super.generatePolicy('service', policyEffect); // Extract principal from event, can use ttl
     return policy;
   }
 
@@ -26,7 +28,8 @@ class ServiceAuthorizer extends BaseAuthorizer {
             console.log('Validation Error:', err);
             return resolve(policyEffects.deny);
           }
-          if (res.aut === authorizerTypes.serviceAuthorizer) {
+          if (res.aut === authorizerTypes.userAuthorizer
+            && parseInt(res.sub, 10) === parseInt(this.id, 10)) {
             return resolve(policyEffects.allow);
           }
           return resolve(policyEffects.deny);
@@ -35,4 +38,4 @@ class ServiceAuthorizer extends BaseAuthorizer {
   }
 }
 
-module.exports = ServiceAuthorizer;
+module.exports = UserAuthorizer;

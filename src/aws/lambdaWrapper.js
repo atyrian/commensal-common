@@ -1,4 +1,4 @@
-const { HttpError } = require('../errors').HttpError;
+const { HttpError } = require('../errors');
 
 function lambdaWrapper(fn) {
   return (event, context, callback) => Promise.resolve()
