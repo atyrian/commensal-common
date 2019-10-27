@@ -1,6 +1,6 @@
 {
   "name": "commensal-common",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "common code for commensal back-end",
   "main": "index.js",
   "engines": {

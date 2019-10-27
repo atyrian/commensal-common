@@ -8,8 +8,12 @@ class UserAuthorizer extends BaseAuthorizer {
     super();
     this.event = event;
     const [, path] = event.methodArn.split(/(?<=id\/)/);
-    const [id] = path.split('/');
-    this.id = id;
+    if (path) {
+      const [id] = path.split('/');
+      this.id = id;
+    } else {
+      this.id = 0;
+    }
     this.ssm = new AWS.SSM();
   }
 
