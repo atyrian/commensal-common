@@ -20,6 +20,7 @@ class UserAuthorizer extends BaseAuthorizer {
   async authorize() {
     const policyEffect = await this.validateToken(this.event.authorizationToken);
     const policy = super.generatePolicy('service', policyEffect);
+    policy.context = { userId: this.id }
     return policy;
   }
 
