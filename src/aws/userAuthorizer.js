@@ -7,14 +7,15 @@ class UserAuthorizer extends BaseAuthorizer {
   constructor(event) {
     super();
     this.event = event;
-    const methodArn = event.methodArn.split('/');
-    this.id = methodArn.pop();
+    const [, path] = event.methodArn.split(/(?<=id\/)/);
+    const [id] = path.split('/');
+    this.id = id;
     this.ssm = new AWS.SSM();
   }
 
   async authorize() {
     const policyEffect = await this.validateToken(this.event.authorizationToken);
-    const policy = super.generatePolicy('service', policyEffect); // Extract principal from event, can use ttl
+    const policy = super.generatePolicy('service', policyEffect);
     return policy;
   }
 
