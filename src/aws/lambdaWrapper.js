@@ -7,7 +7,7 @@ function lambdaWrapper(fn) {
     .catch((error) => {
       if (error instanceof HttpError) {
         callback(null,
-          { body: JSON.stringify({ message: error.message, code: error.statusCode }) });
+          { body: JSON.stringify({ message: error.message, status: error.statusCode }) });
       } else {
         console.log('Error not instance of HTTP Error');
         console.log('Error:', error.stack);
