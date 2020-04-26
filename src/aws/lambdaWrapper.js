@@ -3,7 +3,7 @@ const { HttpError } = require('../errors');
 function lambdaWrapper(fn) {
   return (event, context, callback) => Promise.resolve()
     .then(() => fn(event))
-    .then(response => callback(null, response))
+    .then(response => callback(null, { statusCode: 200, body: response }))
     .catch((error) => {
       if (error instanceof HttpError) {
         callback(null,
