@@ -7,12 +7,14 @@ function lambdaWrapper(fn) {
     .catch((error) => {
       if (error instanceof HttpError) {
         callback(null,
-          { body: JSON.stringify({ message: error.message, status: error.statusCode }) });
+          {
+            statusCode: 200,
+            body: JSON.stringify({ message: error.message, status: error.statusCode }),
+          });
       } else {
         console.log('Error not instance of HTTP Error');
         console.log('Error:', error.stack);
-        callback(null,
-          { body: JSON.stringify({ message: 'Internal Server Error', code: 500 }) });
+        callback(new Error('Internal Server Error'));
       }
     });
 }
